@@ -4,9 +4,13 @@ public class BoardModel {
     private int[][] gameBoard;
 
     private int nextFreePlaceColumn1, nextFreePlaceColumn2, nextFreePlaceColumn3, nextFreePlaceColumn4, nextFreePlaceColumn5, nextFreePlaceColumn6, nextFreePlaceColumn7;
+    private int numOfPlayer1Circles, numOfPlayer2Circles;
     public BoardModel()
     {
         gameBoard = new int[CirclesInColumn][NumOfColumns];
+
+        numOfPlayer1Circles = 0;
+        numOfPlayer2Circles = 0;
 
         // The length of the rows in the array
         for(int i = 0; i < gameBoard.length; i++)
@@ -78,6 +82,24 @@ public class BoardModel {
                     gameBoard[Column-1][nextFreePlaceColumn7] = player;
                     nextFreePlaceColumn7--;
             }
+            switch (player)
+            {
+                case 1:
+                    numOfPlayer1Circles++;
+                case 2:
+                    numOfPlayer2Circles++;
+            }
         }
+    }
+    public boolean checkWin(int player, int rowIndex, int columnIndex)
+    {
+        switch (player)
+        {
+            case 1:
+                numOfPlayer1Circles++;
+            case 2:
+                numOfPlayer2Circles++;
+        }
+        return true;
     }
 }
