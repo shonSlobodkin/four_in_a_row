@@ -9,7 +9,7 @@ public class BoardModel {
     private Presenter UIPresenter;
     public BoardModel()
     {
-        UIPresenter = new Presenter(Rows,Columns);
+        UIPresenter = new Presenter(Rows,Columns,this);
 
         gameBoard = new int[Rows][Columns];
 

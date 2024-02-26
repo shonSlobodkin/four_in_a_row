@@ -6,10 +6,13 @@ import java.awt.image.BufferedImage;
 public class Presenter extends JFrame{
     private static int rows;
     private static int columns;
-    public Presenter(int rows_input, int columns_input)
+    private static BoardModel gameBoardModel;
+    public Presenter(int rows_input, int columns_input,BoardModel boardModel)
     {
         rows = rows_input;
         columns = columns_input;
+
+        gameBoardModel = boardModel;
 
         setTitle("4 IN A ROW");
         setBounds(300,90,900,600);
@@ -37,6 +40,27 @@ public class Presenter extends JFrame{
         private static final int COLS = getColumns();
         private static final int CIRCLE_SIZE = 50; // Diameter of each circle
         private static final int CELL_SIZE = CIRCLE_SIZE + 10; // Size of each cell (circle + gap)
+        private JButton[] columnButtons;
+        public void GameBoard() {
+            setLayout(new BorderLayout());
+
+            // Create buttons for each column
+            JPanel buttonPanel = new JPanel(new GridLayout(1, COLS));
+            columnButtons = new JButton[COLS];
+            for (int col = 0; col < COLS; col++) {
+                JButton button = new JButton("Add");
+                int column = col; // For using in lambda
+                button.addActionListener(e -> addCircle(column));
+                buttonPanel.add(button);
+                columnButtons[col] = button;
+            }
+            add(buttonPanel, BorderLayout.SOUTH);
+        }
+
+        private void addCircle(int column) {
+            System.out.println("Adding circle to column " + column);
+            // Add your logic here to add a circle to the specified column
+        }
 
         @Override
         protected void paintComponent(Graphics g) {
