@@ -5,8 +5,12 @@ public class BoardModel {
 
     private int nextFreePlaceColumn1, nextFreePlaceColumn2, nextFreePlaceColumn3, nextFreePlaceColumn4, nextFreePlaceColumn5, nextFreePlaceColumn6, nextFreePlaceColumn7;
     private int numOfPlayer1Circles, numOfPlayer2Circles;
+
+    private Presenter UIPresenter;
     public BoardModel()
     {
+        UIPresenter = new Presenter();
+
         gameBoard = new int[CirclesInColumn][NumOfColumns];
 
         numOfPlayer1Circles = 0;
