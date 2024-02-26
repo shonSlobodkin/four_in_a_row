@@ -1,6 +1,6 @@
 public class BoardModel {
-    private final int CirclesInColumn = 6;
-    private final int NumOfColumns = 7;
+    private final int Rows = 6;
+    private final int Columns = 7;
     private int[][] gameBoard;
 
     private int nextFreePlaceColumn1, nextFreePlaceColumn2, nextFreePlaceColumn3, nextFreePlaceColumn4, nextFreePlaceColumn5, nextFreePlaceColumn6, nextFreePlaceColumn7;
@@ -9,9 +9,9 @@ public class BoardModel {
     private Presenter UIPresenter;
     public BoardModel()
     {
-        UIPresenter = new Presenter();
+        UIPresenter = new Presenter(Rows,Columns);
 
-        gameBoard = new int[CirclesInColumn][NumOfColumns];
+        gameBoard = new int[Rows][Columns];
 
         numOfPlayer1Circles = 0;
         numOfPlayer2Circles = 0;
@@ -24,13 +24,13 @@ public class BoardModel {
                 gameBoard[i][j] = 0;
             }
         }
-        nextFreePlaceColumn1 = CirclesInColumn -1;
-        nextFreePlaceColumn2 = CirclesInColumn -1;
-        nextFreePlaceColumn3 = CirclesInColumn -1;
-        nextFreePlaceColumn4 = CirclesInColumn -1;
-        nextFreePlaceColumn5 = CirclesInColumn -1;
-        nextFreePlaceColumn6 = CirclesInColumn -1;
-        nextFreePlaceColumn7 = CirclesInColumn -1;
+        nextFreePlaceColumn1 = Rows -1;
+        nextFreePlaceColumn2 = Rows -1;
+        nextFreePlaceColumn3 = Rows -1;
+        nextFreePlaceColumn4 = Rows -1;
+        nextFreePlaceColumn5 = Rows -1;
+        nextFreePlaceColumn6 = Rows -1;
+        nextFreePlaceColumn7 = Rows -1;
     }
     public boolean checkIfColumnFull(int Column)
     {
