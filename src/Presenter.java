@@ -7,13 +7,15 @@ public class Presenter extends JFrame{
     private static int rows;
     private static int columns;
     private static BoardModel gameBoardModel;
-    private BoardPaint myGraphicBoard;
     private View gameView;
+    private final BoardPaint myGraphicBoard;
+    private int currentPlayer;
     public Presenter(BoardModel boardModel)
     {
-        gameBoardModel = boardModel;
         rows = boardModel.getRows();
         columns = boardModel.getColumns();
+        gameBoardModel = boardModel;
+        this.currentPlayer = 0;
 
         setTitle("4 IN A ROW");
         setBounds(300,90,900,600);
@@ -31,18 +33,24 @@ public class Presenter extends JFrame{
         this.gameView = inputView;
     }
 
-    public void userChoice(int column, int player)
+    public void userChoice(int column)
     {
         if(!gameBoardModel.checkIfColumnFull(column)) {
-            myGraphicBoard.addCircle(gameBoardModel.getNextFreeSpace(column),column,player);
-            gameBoardModel.addCircleToColumn(column,player);
+            myGraphicBoard.addCircle(gameBoardModel.getNextFreeSpace(column),column,currentPlayer%2+1);
+            gameBoardModel.addCircleToColumn(column,currentPlayer%2+1);
+            this.currentPlayer++;
             gameView.displayMessage("PRINTED SUCCESSFULLY!");
         }
         else {
             gameView.displayMessage("ERROR, tried inserting circle in a FULL column!\nTry other columns!");
         }
     }
+    public int getCurrentPlayer()
+    {
+        return this.currentPlayer%2+1;
+    }
     public static class BoardPaint extends JPanel {
+        private BoardModel getGameBoardModel;
         private static final int ROWS = gameBoardModel.getRows();
         private static final int COLS = gameBoardModel.getColumns();
         private static final int CIRCLE_SIZE = 50; // Diameter of each circle
@@ -87,7 +95,7 @@ public class Presenter extends JFrame{
             g.drawOval(x, y, CIRCLE_SIZE, CIRCLE_SIZE);
         }
         private void addCircle(int row, int column, int player) {
-            switch (player+1)
+            switch (player)
             {
                 case 1:
                     circleColors[row][column-1] = Color.RED; // Set the color to red
