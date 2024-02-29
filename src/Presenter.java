@@ -77,6 +77,8 @@ public class Presenter extends JFrame{
                     this.circleColors[i][j]=Color.white;
                 }
             }
+            JLabel label1 = new JLabel("Test");
+            label1.setSize(500,500);
         }
         @Override
         protected void paintComponent(Graphics g) {
@@ -94,6 +96,8 @@ public class Presenter extends JFrame{
                     drawCircle(g, x, y,circleColors[row][col]);
                 }
             }
+
+           // this.label1.setVisible(true);
         }
 
         private void drawCircle(Graphics g, int x, int y, Color circleColor) {
