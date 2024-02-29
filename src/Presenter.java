@@ -54,31 +54,13 @@ public class Presenter extends JFrame{
             setLayout(new BorderLayout());
 
             // Initialize the array to store circle colors
-            this.initCircles();
-            //for(Color[] carr : circleColors)
-            //{
-            //    for(Color c : carr)
-            //    {
-            //        c = Color.YELLOW;
-           //     }
-          //  }
-        }
-        private void initCircles()
-        {
             for(int i = 0; i< rows; i++)
             {
                 for(int j = 0; j<columns;j++)
                 {
-                    this.circleColors[i][j]=Color.cyan;
+                    this.circleColors[i][j]=Color.white;
                 }
             }
-            /*for(Color[] carr : circleColors)
-            {
-                for(Color c : carr)
-                {
-                    c = Color.YELLOW;
-                }
-            }*/
         }
         @Override
         protected void paintComponent(Graphics g) {

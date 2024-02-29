@@ -1,6 +1,6 @@
 public class BoardModel {
-    private final int Rows = 2;
-    private final int Columns = 2;
+    private final int Rows = 6;
+    private final int Columns = 7;
     private int[][] gameBoard;
 
     private int nextFreePlaceColumn1, nextFreePlaceColumn2, nextFreePlaceColumn3, nextFreePlaceColumn4, nextFreePlaceColumn5, nextFreePlaceColumn6, nextFreePlaceColumn7;
