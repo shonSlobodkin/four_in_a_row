@@ -7,12 +7,13 @@ public class Presenter extends JFrame{
     private static int rows;
     private static int columns;
     private static BoardModel gameBoardModel;
-    public Presenter(int rows_input, int columns_input,BoardModel boardModel)
+    private BoardPaint myGraphicBoard;
+    private View gameView;
+    public Presenter(BoardModel boardModel)
     {
-        rows = rows_input;
-        columns = columns_input;
-
         gameBoardModel = boardModel;
+        rows = boardModel.getRows();
+        columns = boardModel.getColumns();
 
         setTitle("4 IN A ROW");
         setBounds(300,90,900,600);
@@ -20,48 +21,65 @@ public class Presenter extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
 
-        BoardPaint myGraphicBoard = new BoardPaint();
+        myGraphicBoard = new BoardPaint();
         getContentPane().add(myGraphicBoard);
 
         setVisible(true);
     }
-
-    public static int getRows()
+    public void updateView(View inputView)
     {
-        return rows;
-    }
-    public static int getColumns()
-    {
-        return columns;
+        this.gameView = inputView;
     }
 
+    public void userChoice(int column, int player)
+    {
+        if(!gameBoardModel.checkIfColumnFull(column)) {
+            myGraphicBoard.addCircle(gameBoardModel.getNextFreeSpace(column),column,player);
+            gameBoardModel.addCircleToColumn(column,player);
+            gameView.displayMessage("PRINTED SUCCESSFULLY!");
+        }
+        else {
+            gameView.displayMessage("ERROR, tried inserting circle in a FULL column!\nTry other columns!");
+        }
+    }
     public static class BoardPaint extends JPanel {
-        private static final int ROWS = getRows();
-        private static final int COLS = getColumns();
+        private static final int ROWS = gameBoardModel.getRows();
+        private static final int COLS = gameBoardModel.getColumns();
         private static final int CIRCLE_SIZE = 50; // Diameter of each circle
         private static final int CELL_SIZE = CIRCLE_SIZE + 10; // Size of each cell (circle + gap)
-        private JButton[] columnButtons;
-        public void GameBoard() {
+        private Color[][] circleColors = new Color[ROWS][COLS];
+
+        public BoardPaint()
+        {
             setLayout(new BorderLayout());
 
-            // Create buttons for each column
-            JPanel buttonPanel = new JPanel(new GridLayout(1, COLS));
-            columnButtons = new JButton[COLS];
-            for (int col = 0; col < COLS; col++) {
-                JButton button = new JButton("Add");
-                int column = col; // For using in lambda
-                button.addActionListener(e -> addCircle(column));
-                buttonPanel.add(button);
-                columnButtons[col] = button;
+            // Initialize the array to store circle colors
+            this.initCircles();
+            //for(Color[] carr : circleColors)
+            //{
+            //    for(Color c : carr)
+            //    {
+            //        c = Color.YELLOW;
+           //     }
+          //  }
+        }
+        private void initCircles()
+        {
+            for(int i = 0; i< rows; i++)
+            {
+                for(int j = 0; j<columns;j++)
+                {
+                    this.circleColors[i][j]=Color.cyan;
+                }
             }
-            add(buttonPanel, BorderLayout.SOUTH);
+            /*for(Color[] carr : circleColors)
+            {
+                for(Color c : carr)
+                {
+                    c = Color.YELLOW;
+                }
+            }*/
         }
-
-        private void addCircle(int column) {
-            System.out.println("Adding circle to column " + column);
-            // Add your logic here to add a circle to the specified column
-        }
-
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -75,16 +93,28 @@ public class Presenter extends JFrame{
                 for (int col = 0; col < columns; col++) {
                     int x = startX + col * CELL_SIZE;
                     int y = startY + row * CELL_SIZE;
-                    drawCircle(g, x, y);
+                    drawCircle(g, x, y,circleColors[row][col]);
                 }
             }
         }
 
-        private void drawCircle(Graphics g, int x, int y) {
-            g.setColor(Color.WHITE);
+        private void drawCircle(Graphics g, int x, int y, Color circleColor) {
+            g.setColor(circleColor); // Color.WHITE
             g.fillOval(x, y, CIRCLE_SIZE, CIRCLE_SIZE);
-            g.setColor(Color.BLACK);
+            g.setColor(Color.WHITE);
             g.drawOval(x, y, CIRCLE_SIZE, CIRCLE_SIZE);
+        }
+        private void addCircle(int row, int column, int player) {
+            switch (player+1)
+            {
+                case 1:
+                    circleColors[row][column-1] = Color.RED; // Set the color to red
+                    repaint(); // Redraw the panel to reflect the change
+                    break;
+                case 2:
+                    circleColors[row][column-1] = Color.GREEN; // Set the color to red
+                    repaint(); // Redraw the panel to reflect the change
+            }
         }
     }
 }

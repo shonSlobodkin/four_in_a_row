@@ -1,16 +1,13 @@
 public class BoardModel {
-    private final int Rows = 6;
-    private final int Columns = 7;
+    private final int Rows = 2;
+    private final int Columns = 2;
     private int[][] gameBoard;
 
     private int nextFreePlaceColumn1, nextFreePlaceColumn2, nextFreePlaceColumn3, nextFreePlaceColumn4, nextFreePlaceColumn5, nextFreePlaceColumn6, nextFreePlaceColumn7;
     private int numOfPlayer1Circles, numOfPlayer2Circles;
 
-    private Presenter UIPresenter;
     public BoardModel()
     {
-        UIPresenter = new Presenter(Rows,Columns,this);
-
         gameBoard = new int[Rows][Columns];
 
         numOfPlayer1Circles = 0;
@@ -58,42 +55,47 @@ public class BoardModel {
         }
         return true;
     }
-    public void addCircleToLine(int Column, int player)
+    public void addCircleToColumn(int Column, int player)
     {
-        if (!checkIfColumnFull(Column))
-        {
             switch (Column)
             {
                 case 1:
                     gameBoard[Column-1][nextFreePlaceColumn1] = player;
                     nextFreePlaceColumn1--;
+                    break;
                 case 2:
                     gameBoard[Column-1][nextFreePlaceColumn2] = player;
                     nextFreePlaceColumn2--;
+                    break;
                 case 3:
                     gameBoard[Column-1][nextFreePlaceColumn3] = player;
                     nextFreePlaceColumn3--;
+                    break;
                 case 4:
                     gameBoard[Column-1][nextFreePlaceColumn4] = player;
                     nextFreePlaceColumn4--;
+                    break;
                 case 5:
                     gameBoard[Column-1][nextFreePlaceColumn5] = player;
                     nextFreePlaceColumn5--;
+                    break;
                 case 6:
                     gameBoard[Column-1][nextFreePlaceColumn6] = player;
                     nextFreePlaceColumn6--;
+                    break;
                 case 7:
                     gameBoard[Column-1][nextFreePlaceColumn7] = player;
                     nextFreePlaceColumn7--;
+                    break;
             }
-            switch (player)
+            switch (player+1)
             {
                 case 1:
                     numOfPlayer1Circles++;
+                    break;
                 case 2:
                     numOfPlayer2Circles++;
             }
-        }
     }
     public boolean checkWin(int player, int rowIndex, int columnIndex)
     {
@@ -106,4 +108,45 @@ public class BoardModel {
         }
         return true;
     }
+    public int[][] GetGameBoard()
+    {
+        return this.gameBoard;
+    }
+    public int getRows() {
+        return Rows;
+    }
+
+    public int getColumns() {
+        return Columns;
+    }
+
+    public int getNextFreeSpace(int column)
+    {
+        int space = -1;
+        switch (column)
+        {
+            case 1:
+                space =  this.nextFreePlaceColumn1;
+                break;
+            case 2:
+                space =  this.nextFreePlaceColumn2;
+                break;
+            case 3:
+                space =  this.nextFreePlaceColumn3;
+                break;
+            case 4:
+                space =  this.nextFreePlaceColumn4;
+                break;
+            case 5:
+                space =  this.nextFreePlaceColumn5;
+                break;
+            case 6:
+                space =  this.nextFreePlaceColumn6;
+                break;
+            case 7:
+                space =  this.nextFreePlaceColumn7;
+        }
+        return space;
+    }
+
 }
