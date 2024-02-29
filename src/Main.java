@@ -5,5 +5,6 @@ public class Main {
         BoardModel myBoardModel = new BoardModel();
         Presenter myPresenter = new Presenter(myBoardModel);
         View myView = new View(myPresenter,myBoardModel.getRows(),myBoardModel.getColumns());
+        System.out.println("Game finished");
     }
 }

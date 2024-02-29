@@ -35,11 +35,19 @@ public class Presenter extends JFrame{
 
     public void userChoice(int column)
     {
+        int playerWon = 0;
         if(!gameBoardModel.checkIfColumnFull(column)) {
             myGraphicBoard.addCircle(gameBoardModel.getNextFreeSpace(column),column,currentPlayer%2+1);
-            gameBoardModel.addCircleToColumn(column,currentPlayer%2+1);
-            this.currentPlayer++;
-            gameView.displayMessage("PRINTED SUCCESSFULLY!");
+            playerWon = gameBoardModel.addCircleToColumn(column,currentPlayer%2+1);
+            if(playerWon==0)
+            {
+                this.currentPlayer++;
+                gameView.displayMessage("PRINTED SUCCESSFULLY!");
+            }
+            else {
+                gameView.displayEndOfGameMessage("Player: " + playerWon + " Won the Game!");
+                //System.out.println(" ");
+            }
         }
         else {
             gameView.displayMessage("ERROR, tried inserting circle in a FULL column!\nTry other columns!");

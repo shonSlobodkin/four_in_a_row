@@ -55,40 +55,40 @@ public class BoardModel {
         }
         return true;
     }
-    public void addCircleToColumn(int Column, int player)
+    public int addCircleToColumn(int Column, int player)
     {
             switch (Column)
             {
                 case 1:
-                    gameBoard[Column-1][nextFreePlaceColumn1] = player;
+                    gameBoard[nextFreePlaceColumn1][Column-1] = player;
                     nextFreePlaceColumn1--;
                     break;
                 case 2:
-                    gameBoard[Column-1][nextFreePlaceColumn2] = player;
+                    gameBoard[nextFreePlaceColumn2] [Column-1]= player;
                     nextFreePlaceColumn2--;
                     break;
                 case 3:
-                    gameBoard[Column-1][nextFreePlaceColumn3] = player;
+                    gameBoard[nextFreePlaceColumn3] [Column-1]= player;
                     nextFreePlaceColumn3--;
                     break;
                 case 4:
-                    gameBoard[Column-1][nextFreePlaceColumn4] = player;
+                    gameBoard[nextFreePlaceColumn4] [Column-1]= player;
                     nextFreePlaceColumn4--;
                     break;
                 case 5:
-                    gameBoard[Column-1][nextFreePlaceColumn5] = player;
+                    gameBoard[nextFreePlaceColumn5] [Column-1]= player;
                     nextFreePlaceColumn5--;
                     break;
                 case 6:
-                    gameBoard[Column-1][nextFreePlaceColumn6] = player;
+                    gameBoard[nextFreePlaceColumn6] [Column-1]= player;
                     nextFreePlaceColumn6--;
                     break;
                 case 7:
-                    gameBoard[Column-1][nextFreePlaceColumn7] = player;
+                    gameBoard[nextFreePlaceColumn7] [Column-1]= player;
                     nextFreePlaceColumn7--;
                     break;
             }
-            switch (player+1)
+            switch (player)
             {
                 case 1:
                     numOfPlayer1Circles++;
@@ -96,17 +96,42 @@ public class BoardModel {
                 case 2:
                     numOfPlayer2Circles++;
             }
+            if(numOfPlayer1Circles>=4 || numOfPlayer2Circles >=4)
+            {
+                int playerWon = this.checkWin();
+                return playerWon;
+            }
+            return 0;
     }
-    public boolean checkWin(int player, int rowIndex, int columnIndex)
+    public int checkWin()
     {
-        switch (player)
+        int count1 = 0, count2 = 0;
+        for(int i = 0; i < this.Rows; i++)
         {
-            case 1:
-                numOfPlayer1Circles++;
-            case 2:
-                numOfPlayer2Circles++;
+            for(int j = 0; j < this.Columns; j++)
+            {
+                if(this.gameBoard[i][j]==1)
+                {
+                    count1++;
+                    count2=0;
+                }
+                else if(this.gameBoard[i][j]==2)
+                {
+                    count1=0;
+                    count2++;
+                }
+                else if(this.gameBoard[i][j]==0)
+                {
+                    count1=0;
+                    count2=0;
+                }
+                if(count1==4)
+                    return 1;
+                if(count2==4)
+                    return 2;
+            }
         }
-        return true;
+        return 0;
     }
     public int[][] GetGameBoard()
     {

@@ -15,7 +15,7 @@ public class View implements IView{
         this.presenterApp = inputPresenter;
         //this.currentPlayer = 0;
         this.displayMessage("WELCOME TO 4 IN A ROW!\nSIMPLY BEGIN PLAYING BY INPUTTING COLUMN TO FILL!\nEACH PLAYER (1/2) AT ONE TIME\nHAVE FUN:)");
-        this.continueGame();
+        //this.continueGame();
     }
     public void continueGame()
     {
@@ -31,15 +31,12 @@ public class View implements IView{
     @Override
     public void displayMessage(String var1) {
         System.out.println(var1);
-        /*if(var1.equals("PRINTED SUCCESSFULLY!"))
-        {
-            this.continueGame();
-        }*/
         this.continueGame();
     }
 
     @Override
     public int displayEndOfGameMessage(String var1) {
+        System.out.println(var1);
         return 0;
     }
 
