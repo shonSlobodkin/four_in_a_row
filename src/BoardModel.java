@@ -159,7 +159,6 @@ public class BoardModel {
                     return currentPlayer;
             }
         }
-
         return 0;
     }
     public boolean checkValidColumn(int column)
