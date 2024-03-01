@@ -1,7 +1,7 @@
 public class BoardModel {
     private final int Rows = 6;
     private final int Columns = 7;
-    private int[][] gameBoard;
+    private final int[][] gameBoard;
 
     private int nextFreePlaceColumn1, nextFreePlaceColumn2, nextFreePlaceColumn3, nextFreePlaceColumn4, nextFreePlaceColumn5, nextFreePlaceColumn6, nextFreePlaceColumn7;
     private int numOfPlayer1Circles, numOfPlayer2Circles;
@@ -9,7 +9,10 @@ public class BoardModel {
     public BoardModel()
     {
         gameBoard = new int[Rows][Columns];
-
+        this.initGame();
+    }
+    public void initGame()
+    {
         numOfPlayer1Circles = 0;
         numOfPlayer2Circles = 0;
 
@@ -132,10 +135,6 @@ public class BoardModel {
             }
         }
         return 0;
-    }
-    public int[][] GetGameBoard()
-    {
-        return this.gameBoard;
     }
     public int getRows() {
         return Rows;

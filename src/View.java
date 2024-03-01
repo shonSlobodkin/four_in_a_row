@@ -9,19 +9,40 @@ public class View implements IView{
     //private int currentPlayer;
     public View(Presenter inputPresenter, int rows, int cols)
     {
-        inputPresenter.updateView(this);
+        inputPresenter.setView(this);
         this.ROWS = rows;
         this.COLS = cols;
         this.presenterApp = inputPresenter;
         //this.currentPlayer = 0;
         this.displayMessage("WELCOME TO 4 IN A ROW!\nSIMPLY BEGIN PLAYING BY INPUTTING COLUMN TO FILL!\nEACH PLAYER (1/2) AT ONE TIME\nHAVE FUN:)");
-        //this.continueGame();
+        this.newGameView();
+        this.runGame();
     }
-    public void continueGame()
+    private void runGame()
+    {
+        int gameOver = 0, newGame;
+        while(gameOver!=1)
+        {
+            gameOver = this.continueGame();
+        }
+        System.out.println("\n\tDO YOU WISH TO PLAY AGAIN? (YES - Press 1, NO - Press 0)");
+        newGame = sc.nextInt();
+        switch (newGame)
+        {
+            case 1:
+
+                break;
+            case 0:
+                this.presenterApp.closeApplication();
+
+        }
+
+    }
+    private int continueGame()
     {
         System.out.println("Player: " + this.presenterApp.getCurrentPlayer() + " Enter column: ");
         int column = this.sc.nextInt();
-        this.presenterApp.userChoice(column);
+        return this.presenterApp.userChoice(column);
     }
     @Override
     public void updateUIBoard(int var1, int var2, char var3) {
@@ -31,13 +52,12 @@ public class View implements IView{
     @Override
     public void displayMessage(String var1) {
         System.out.println(var1);
-        this.continueGame();
+        //this.continueGame();
     }
 
     @Override
-    public int displayEndOfGameMessage(String var1) {
+    public void displayEndOfGameMessage(String var1) {
         System.out.println(var1);
-        return 0;
     }
 
     @Override
@@ -47,6 +67,6 @@ public class View implements IView{
 
     @Override
     public void newGameView() {
-
+        this.presenterApp.openApplication();
     }
 }

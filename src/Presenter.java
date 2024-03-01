@@ -1,39 +1,54 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 
 public class Presenter extends JFrame{
-    private static int rows;
-    private static int columns;
-    private static BoardModel gameBoardModel;
-    private View gameView;
-    private final BoardPaint myGraphicBoard;
-    private int currentPlayer;
+    private static int rows; // How many Rows to display
+    private static int columns; // How many Columns to display
+    private static BoardModel gameBoardModel; // Game Board Model Class to be linked with this Presenter Application
+    private View gameView; // Game View Class to be linked with this Presenter Application
+    private final BoardPaint myGraphicBoard; // Inner class that displays live game board
+    private int currentPlayer; // Current Player Playing
     public Presenter(BoardModel boardModel)
     {
+        // Set board size by input boardModel object's settings
         rows = boardModel.getRows();
         columns = boardModel.getColumns();
+
+        // Link the boarModel object to this Presenter Application
         gameBoardModel = boardModel;
+
+        // Init the current Player counter to 0
         this.currentPlayer = 0;
 
-        setTitle("4 IN A ROW");
-        setBounds(300,90,900,600);
-        setBackground(Color.gray);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
-
-        myGraphicBoard = new BoardPaint();
+        // Create a BoardPaint inner class object to later display the gameBoard
+        this.myGraphicBoard = new BoardPaint();
         getContentPane().add(myGraphicBoard);
-
-        setVisible(true);
     }
-    public void updateView(View inputView)
+
+    /** Opens the Application Display Window for the first time */
+    public void openApplication()
+    {
+        setTitle("4 IN A ROW"); // Set Window Title
+        setBounds(300,90,900,600); // Set Window size
+        setBackground(Color.gray); // Set Window background color
+        setDefaultCloseOperation(EXIT_ON_CLOSE); // Set Window default close operation
+        setResizable(false); // Set Window resizeable parameter
+        setVisible(true); // Set Window to bee seen - VISIBLE
+    }
+    /** Closes the Application Window and ends the Presenter Object Process */
+    public void closeApplication()
+    {
+        setVisible(false); // Close Presenter Application Window
+        System.exit(0); // Completely Stop The Presenter Application Process
+    }
+    /** Link the view class to Presenter Application class*/
+    public void setView(View inputView)
     {
         this.gameView = inputView;
     }
 
-    public void userChoice(int column)
+    /** Link the view class to Presenter Application class*/
+    public int userChoice(int column)
     {
         int playerWon = 0;
         if(!gameBoardModel.checkIfColumnFull(column)) {
@@ -46,16 +61,21 @@ public class Presenter extends JFrame{
             }
             else {
                 gameView.displayEndOfGameMessage("Player: " + playerWon + " Won the Game!");
-                //System.out.println(" ");
+                return 1;
             }
         }
         else {
             gameView.displayMessage("ERROR, tried inserting circle in a FULL column!\nTry other columns!");
         }
+        return 0;
     }
     public int getCurrentPlayer()
     {
         return this.currentPlayer%2+1;
+    }
+    public void newGame()
+    {
+
     }
     public static class BoardPaint extends JPanel {
         private BoardModel getGameBoardModel;
@@ -77,8 +97,6 @@ public class Presenter extends JFrame{
                     this.circleColors[i][j]=Color.white;
                 }
             }
-            JLabel label1 = new JLabel("Test");
-            label1.setSize(500,500);
         }
         @Override
         protected void paintComponent(Graphics g) {
@@ -96,8 +114,6 @@ public class Presenter extends JFrame{
                     drawCircle(g, x, y,circleColors[row][col]);
                 }
             }
-
-           // this.label1.setVisible(true);
         }
 
         private void drawCircle(Graphics g, int x, int y, Color circleColor) {

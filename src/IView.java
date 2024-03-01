@@ -3,7 +3,7 @@ public interface IView {
 
     void displayMessage(String var1);
 
-    int displayEndOfGameMessage(String var1);
+    void displayEndOfGameMessage(String var1);
 
     void displayBoard();
 
