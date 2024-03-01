@@ -116,7 +116,7 @@ public class BoardModel {
                 {
                     count++;
                 }
-                else if(this.gameBoard[i][j]==0)
+                else
                 {
                     count=0;
                 }
@@ -124,6 +124,42 @@ public class BoardModel {
                     return currentPlayer;
             }
         }
+        for(int j = 0; j < this.Columns; j++)
+        {
+            for(int i = 0; i < this.Rows; i++)
+            {
+                if(this.gameBoard[i][j]==currentPlayer)
+                {
+                    count++;
+                }
+                else
+                {
+                    count=0;
+                }
+                if(count==4)
+                    return currentPlayer;
+            }
+        }
+        for(int i = 0; i < this.Rows-3; i++)
+        {
+            for(int j = 0; j < this.Columns-3; j++)
+            {
+                for(int k = 0; k < 4; k++)
+                {
+                    if(this.gameBoard[i+k][j+k]==currentPlayer)
+                    {
+                        count++;
+                    }
+                    else
+                    {
+                        count=0;
+                    }
+                }
+                if(count==4)
+                    return currentPlayer;
+            }
+        }
+
         return 0;
     }
     public boolean checkValidColumn(int column)
