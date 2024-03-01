@@ -60,33 +60,41 @@ public class BoardModel {
     }
     public int addCircleToColumn(int Column, int currentPlayer)
     {
+        int rowInputed=0;
             switch (Column)
             {
                 case 1:
+                    rowInputed = nextFreePlaceColumn1;
                     gameBoard[nextFreePlaceColumn1][Column-1] = currentPlayer;
                     nextFreePlaceColumn1--;
                     break;
                 case 2:
+                    rowInputed = nextFreePlaceColumn2;
                     gameBoard[nextFreePlaceColumn2] [Column-1]= currentPlayer;
                     nextFreePlaceColumn2--;
                     break;
                 case 3:
+                    rowInputed = nextFreePlaceColumn3;
                     gameBoard[nextFreePlaceColumn3] [Column-1]= currentPlayer;
                     nextFreePlaceColumn3--;
                     break;
                 case 4:
+                    rowInputed = nextFreePlaceColumn4;
                     gameBoard[nextFreePlaceColumn4] [Column-1]= currentPlayer;
                     nextFreePlaceColumn4--;
                     break;
                 case 5:
+                    rowInputed = nextFreePlaceColumn5;
                     gameBoard[nextFreePlaceColumn5] [Column-1]= currentPlayer;
                     nextFreePlaceColumn5--;
                     break;
                 case 6:
+                    rowInputed = nextFreePlaceColumn6;
                     gameBoard[nextFreePlaceColumn6] [Column-1]= currentPlayer;
                     nextFreePlaceColumn6--;
                     break;
                 case 7:
+                    rowInputed = nextFreePlaceColumn7;
                     gameBoard[nextFreePlaceColumn7] [Column-1]= currentPlayer;
                     nextFreePlaceColumn7--;
                     break;
@@ -101,64 +109,101 @@ public class BoardModel {
             }
             if(numOfPlayer1Circles>=4 || numOfPlayer2Circles >=4)
             {
-                return this.checkWin(currentPlayer);
+                return this.checkWin(currentPlayer,rowInputed,Column-1);
             }
             return 0;
     }
-    private int checkWin(int currentPlayer)
+    private int checkWin(int currentPlayer, int inputRow, int inputCol)
     {
         int count = 0;
-        for(int i = 0; i < this.Rows; i++)
-        {
-            for(int j = 0; j < this.Columns; j++)
-            {
-                if(this.gameBoard[i][j]==currentPlayer)
-                {
-                    count++;
-                }
-                else
-                {
-                    count=0;
-                }
-                if(count==4)
-                    return currentPlayer;
-            }
-        }
+
+        // Check 4 in inputted row starting from 0 column
         for(int j = 0; j < this.Columns; j++)
         {
-            for(int i = 0; i < this.Rows; i++)
+            if(this.gameBoard[inputRow][j]==currentPlayer)
             {
-                if(this.gameBoard[i][j]==currentPlayer)
-                {
-                    count++;
-                }
-                else
-                {
-                    count=0;
-                }
-                if(count==4)
-                    return currentPlayer;
+                count++;
             }
+            else
+            {
+                count=0;
+            }
+            if(count==4)
+                return currentPlayer;
         }
-        for(int i = 0; i < this.Rows-3; i++)
+
+        // Check 4 in inputted column starting from inputted row downwards
+        for(int j = inputRow; j < this.Rows; j++)
         {
-            for(int j = 0; j < this.Columns-3; j++)
+            if(this.gameBoard[j][inputCol]==currentPlayer)
             {
-                for(int k = 0; k < 4; k++)
-                {
-                    if(this.gameBoard[i+k][j+k]==currentPlayer)
-                    {
-                        count++;
-                    }
-                    else
-                    {
-                        count=0;
-                    }
-                }
-                if(count==4)
-                    return currentPlayer;
+                count++;
             }
+            else
+            {
+                count=0;
+            }
+            if(count==4)
+                return currentPlayer;
         }
+
+        // Check 4 in diagonal from up left to down right
+        // Calculate starting point of diagonal
+        int i,j;
+        if(inputRow>inputCol)
+        {
+            i = Math.abs(inputRow-inputCol);
+            j = 0;
+        }
+        else {
+            i = 0;
+            j = Math.abs(inputRow-inputCol);
+        }
+
+        // Check 4 in diagonal from up left to down right
+        while(i<this.Rows && j<this.Columns)
+        {
+            if(this.gameBoard[i][j]==currentPlayer)
+            {
+                count++;
+            }
+            else
+            {
+                count=0;
+            }
+            if(count==4)
+                return currentPlayer;
+            i++;
+            j++;
+        }
+
+        // Check 4 in diagonal from up right to down left
+        // Calculate starting point of diagonal
+        j = (inputCol+inputRow);
+        i = 0;
+        if(j>this.Columns-1)
+        {
+            i += (j-(this.Columns-1));
+            j -= i;
+        }
+
+        // Check 4 in diagonal from up right to down left
+        while(i<this.Rows && j>=0)
+        {
+            if(this.gameBoard[i][j]==currentPlayer)
+            {
+                count++;
+            }
+            else
+            {
+                count=0;
+            }
+            if(count==4)
+                return currentPlayer;
+            i++;
+            j--;
+        }
+
         return 0;
     }
     public boolean checkValidColumn(int column)

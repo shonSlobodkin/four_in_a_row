@@ -59,15 +59,14 @@ public class Presenter extends JFrame{
             if(playerWon==0)
             {
                 this.currentPlayer++;
-                gameView.displayMessage("PRINTED SUCCESSFULLY!");
             }
             else {
-                gameView.displayEndOfGameMessage("Player: " + playerWon + " Won the Game!");
+                gameView.displayEndOfGameMessage("PLAYER: " + playerWon + " WON THE GAME!!!");
                 return 1;
             }
         }
         else {
-            gameView.displayMessage("ERROR, tried inserting circle in a FULL column or in a columns OUT OF INDEX!\nTry other columns!");
+            gameView.displayMessage("\033[0;31mERROR, tried inserting circle in a FULL column or in a columns OUT OF INDEX!\nTry other columns!\033[0m");
         }
         return 0;
     }

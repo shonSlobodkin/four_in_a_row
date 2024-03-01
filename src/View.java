@@ -25,7 +25,7 @@ public class View implements IView{
         {
             gameOver = this.continueGame();
         }
-        System.out.println("\n\tDO YOU WISH TO PLAY AGAIN? (YES - Press 1, NO - Press 0)");
+        System.out.println("\nDO YOU WISH TO PLAY AGAIN? (YES - Press 1, NO - Press 0)");
         newGame = sc.nextInt();
         switch (newGame)
         {
@@ -40,7 +40,15 @@ public class View implements IView{
     }
     private int continueGame()
     {
-        System.out.println("Player: " + this.presenterApp.getCurrentPlayer() + " Enter column: ");
+        int currentPlayer = this.presenterApp.getCurrentPlayer();
+        switch (currentPlayer)
+        {
+            case 1:
+                System.out.println("\033[0;31mPlayer: " + this.presenterApp.getCurrentPlayer() + " Enter column: \033[0m");
+                break;
+            case 2:
+                System.out.println("\033[0;32mPlayer: " + this.presenterApp.getCurrentPlayer() + " Enter column: \033[0m");
+        }
         int column = this.sc.nextInt();
         return this.presenterApp.userChoice(column);
     }
@@ -67,7 +75,7 @@ public class View implements IView{
     @Override
     public void newGameView() {
         this.presenterApp.newGame();
-        this.displayMessage("WELCOME TO 4 IN A ROW!\nSIMPLY BEGIN PLAYING BY INPUTTING COLUMN TO FILL!\nEACH PLAYER (1/2) AT ONE TIME\nHAVE FUN:)");
+        this.displayMessage("\nWELCOME TO 4 IN A ROW!\nSIMPLY BEGIN PLAYING BY INPUTTING COLUMN TO FILL!\nEACH PLAYER (1/2) AT ONE TIME\nHAVE FUN:)\n");
         this.runGame();
     }
 }
