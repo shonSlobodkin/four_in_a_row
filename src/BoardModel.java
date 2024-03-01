@@ -58,40 +58,40 @@ public class BoardModel {
         }
         return true;
     }
-    public int addCircleToColumn(int Column, int player)
+    public int addCircleToColumn(int Column, int currentPlayer)
     {
             switch (Column)
             {
                 case 1:
-                    gameBoard[nextFreePlaceColumn1][Column-1] = player;
+                    gameBoard[nextFreePlaceColumn1][Column-1] = currentPlayer;
                     nextFreePlaceColumn1--;
                     break;
                 case 2:
-                    gameBoard[nextFreePlaceColumn2] [Column-1]= player;
+                    gameBoard[nextFreePlaceColumn2] [Column-1]= currentPlayer;
                     nextFreePlaceColumn2--;
                     break;
                 case 3:
-                    gameBoard[nextFreePlaceColumn3] [Column-1]= player;
+                    gameBoard[nextFreePlaceColumn3] [Column-1]= currentPlayer;
                     nextFreePlaceColumn3--;
                     break;
                 case 4:
-                    gameBoard[nextFreePlaceColumn4] [Column-1]= player;
+                    gameBoard[nextFreePlaceColumn4] [Column-1]= currentPlayer;
                     nextFreePlaceColumn4--;
                     break;
                 case 5:
-                    gameBoard[nextFreePlaceColumn5] [Column-1]= player;
+                    gameBoard[nextFreePlaceColumn5] [Column-1]= currentPlayer;
                     nextFreePlaceColumn5--;
                     break;
                 case 6:
-                    gameBoard[nextFreePlaceColumn6] [Column-1]= player;
+                    gameBoard[nextFreePlaceColumn6] [Column-1]= currentPlayer;
                     nextFreePlaceColumn6--;
                     break;
                 case 7:
-                    gameBoard[nextFreePlaceColumn7] [Column-1]= player;
+                    gameBoard[nextFreePlaceColumn7] [Column-1]= currentPlayer;
                     nextFreePlaceColumn7--;
                     break;
             }
-            switch (player)
+            switch (currentPlayer)
             {
                 case 1:
                     numOfPlayer1Circles++;
@@ -101,12 +101,11 @@ public class BoardModel {
             }
             if(numOfPlayer1Circles>=4 || numOfPlayer2Circles >=4)
             {
-                int playerWon = this.checkWin();
-                return playerWon;
+                return this.checkWin(currentPlayer);
             }
             return 0;
     }
-    public int checkWin()
+    private int checkWin(int currentPlayer)
     {
         int count1 = 0, count2 = 0;
         for(int i = 0; i < this.Rows; i++)

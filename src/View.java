@@ -1,3 +1,5 @@
+// import org.jetbrains.annotations.NotNull;
+
 import java.util.Scanner;
 
 public class View implements IView{
@@ -13,10 +15,8 @@ public class View implements IView{
         this.ROWS = rows;
         this.COLS = cols;
         this.presenterApp = inputPresenter;
-        //this.currentPlayer = 0;
-        this.displayMessage("WELCOME TO 4 IN A ROW!\nSIMPLY BEGIN PLAYING BY INPUTTING COLUMN TO FILL!\nEACH PLAYER (1/2) AT ONE TIME\nHAVE FUN:)");
+        this.presenterApp.openApplication();
         this.newGameView();
-        this.runGame();
     }
     private void runGame()
     {
@@ -30,7 +30,7 @@ public class View implements IView{
         switch (newGame)
         {
             case 1:
-
+                this.newGameView();
                 break;
             case 0:
                 this.presenterApp.closeApplication();
@@ -52,7 +52,6 @@ public class View implements IView{
     @Override
     public void displayMessage(String var1) {
         System.out.println(var1);
-        //this.continueGame();
     }
 
     @Override
@@ -67,6 +66,8 @@ public class View implements IView{
 
     @Override
     public void newGameView() {
-        this.presenterApp.openApplication();
+        this.presenterApp.newGame();
+        this.displayMessage("WELCOME TO 4 IN A ROW!\nSIMPLY BEGIN PLAYING BY INPUTTING COLUMN TO FILL!\nEACH PLAYER (1/2) AT ONE TIME\nHAVE FUN:)");
+        this.runGame();
     }
 }

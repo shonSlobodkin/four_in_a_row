@@ -1,3 +1,5 @@
+//import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -75,7 +77,9 @@ public class Presenter extends JFrame{
     }
     public void newGame()
     {
-
+        this.myGraphicBoard.initColorBoard();
+        this.currentPlayer = 0;
+        gameBoardModel.initGame();
     }
     public static class BoardPaint extends JPanel {
         private BoardModel getGameBoardModel;
@@ -83,20 +87,12 @@ public class Presenter extends JFrame{
         private static final int COLS = gameBoardModel.getColumns();
         private static final int CIRCLE_SIZE = 50; // Diameter of each circle
         private static final int CELL_SIZE = CIRCLE_SIZE + 10; // Size of each cell (circle + gap)
-        private Color[][] circleColors = new Color[ROWS][COLS];
+        private final Color[][] circleColors = new Color[ROWS][COLS];
 
         public BoardPaint()
         {
             setLayout(new BorderLayout());
-
-            // Initialize the array to store circle colors
-            for(int i = 0; i< rows; i++)
-            {
-                for(int j = 0; j<columns;j++)
-                {
-                    this.circleColors[i][j]=Color.white;
-                }
-            }
+            this.initColorBoard();
         }
         @Override
         protected void paintComponent(Graphics g) {
@@ -116,6 +112,18 @@ public class Presenter extends JFrame{
             }
         }
 
+        private void initColorBoard()
+        {
+            // Initialize the array to store circle colors
+            for(int i = 0; i< rows; i++)
+            {
+                for(int j = 0; j<columns;j++)
+                {
+                    this.circleColors[i][j]=Color.white;
+                }
+            }
+            repaint();
+        }
         private void drawCircle(Graphics g, int x, int y, Color circleColor) {
             g.setColor(circleColor); // Color.WHITE
             g.fillOval(x, y, CIRCLE_SIZE, CIRCLE_SIZE);
