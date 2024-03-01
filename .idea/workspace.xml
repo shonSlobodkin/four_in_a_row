@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36c68fc6-45d3-4833-9e7a-7d51ddc781e4" name="Changes" comment="Commit Changes">
-      <change afterPath="$PROJECT_DIR$/javadoc/four_in_a_row.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BoardModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BoardModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Presenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +41,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.Main.executor": "Run",
+    "Application.Main.executor": "Debug",
     "Downloaded.Files.Path.Enabled": "false",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
@@ -174,11 +172,30 @@
       <option name="project" value="LOCAL" />
       <updated>1709293683703</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Commit Changes">
+      <option name="closed" value="true" />
+      <created>1709295203887</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1709295203887</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Commit Changes" />
     <option name="LAST_COMMIT_MESSAGE" value="Commit Changes" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/BoardModel.java</url>
+          <line>123</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

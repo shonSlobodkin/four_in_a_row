@@ -107,33 +107,28 @@ public class BoardModel {
     }
     private int checkWin(int currentPlayer)
     {
-        int count1 = 0, count2 = 0;
+        int count = 0;
         for(int i = 0; i < this.Rows; i++)
         {
             for(int j = 0; j < this.Columns; j++)
             {
-                if(this.gameBoard[i][j]==1)
+                if(this.gameBoard[i][j]==currentPlayer)
                 {
-                    count1++;
-                    count2=0;
-                }
-                else if(this.gameBoard[i][j]==2)
-                {
-                    count1=0;
-                    count2++;
+                    count++;
                 }
                 else if(this.gameBoard[i][j]==0)
                 {
-                    count1=0;
-                    count2=0;
+                    count=0;
                 }
-                if(count1==4)
-                    return 1;
-                if(count2==4)
-                    return 2;
+                if(count==4)
+                    return currentPlayer;
             }
         }
         return 0;
+    }
+    public boolean checkValidColumn(int column)
+    {
+        return column>0 && column<=this.Columns;
     }
     public int getRows() {
         return Rows;

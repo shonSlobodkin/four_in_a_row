@@ -53,7 +53,7 @@ public class Presenter extends JFrame{
     public int userChoice(int column)
     {
         int playerWon = 0;
-        if(!gameBoardModel.checkIfColumnFull(column)) {
+        if(gameBoardModel.checkValidColumn(column) && !gameBoardModel.checkIfColumnFull(column)) {
             myGraphicBoard.addCircle(gameBoardModel.getNextFreeSpace(column),column,currentPlayer%2+1);
             playerWon = gameBoardModel.addCircleToColumn(column,currentPlayer%2+1);
             if(playerWon==0)
@@ -67,7 +67,7 @@ public class Presenter extends JFrame{
             }
         }
         else {
-            gameView.displayMessage("ERROR, tried inserting circle in a FULL column!\nTry other columns!");
+            gameView.displayMessage("ERROR, tried inserting circle in a FULL column or in a columns OUT OF INDEX!\nTry other columns!");
         }
         return 0;
     }
