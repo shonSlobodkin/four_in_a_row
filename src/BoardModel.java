@@ -149,6 +149,7 @@ public class BoardModel {
                 return currentPlayer;
         }
 
+        count = 0;
         // Check 4 in inputted column starting from inputted row downwards
         for(int j = inputRow; j < this.Rows; j++)
         {
@@ -177,6 +178,7 @@ public class BoardModel {
             j = Math.abs(inputRow-inputCol);
         }
 
+        count = 0;
         // Check 4 in diagonal from up left to down right
         while(i<this.Rows && j<this.Columns)
         {
@@ -204,6 +206,7 @@ public class BoardModel {
             j -= i;
         }
 
+        count = 0;
         // Check 4 in diagonal from up right to down left
         while(i<this.Rows && j>=0)
         {
@@ -219,6 +222,12 @@ public class BoardModel {
                 return currentPlayer;
             i++;
             j--;
+        }
+
+        // Return 3 in case of draw when all the board if full.
+        if(this.numOfPlayer1Circles+this.numOfPlayer2Circles == this.Rows * this.Columns)
+        {
+            return 3;
         }
 
         return 0;

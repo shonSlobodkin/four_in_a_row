@@ -78,9 +78,21 @@ public class Presenter extends JFrame{
                 // Set next move to be done by the other player.
                 this.currentPlayer++;
             }
+            else if(playerWon == 3)
+            {
+                gameView.displayEndOfGameMessage("\033[0;34mDRAW!!!\033[0m");
+                return 1;
+            }
             else {
                 // Display message that current player has Won.
-                gameView.displayEndOfGameMessage("PLAYER: " + playerWon + " WON THE GAME!!!");
+                switch (playerWon)
+                {
+                    case 1:
+                        gameView.displayEndOfGameMessage("\033[0;31mPLAYER: " + playerWon + " WON THE GAME!!!\033[0m");
+                        break;
+                    case 2:
+                        gameView.displayEndOfGameMessage("\033[0;32mPLAYER: " + playerWon + " WON THE GAME!!!\033[0m");
+                }
                 return 1;
             }
         }

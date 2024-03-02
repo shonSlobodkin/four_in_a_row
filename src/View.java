@@ -52,14 +52,7 @@ public class View implements IView{
     private int continueGame()
     {
         int currentPlayer = this.presenterApp.getCurrentPlayer();
-        switch (currentPlayer)
-        {
-            case 1:
-                System.out.println("\033[0;31mPlayer: " + this.presenterApp.getCurrentPlayer() + " Enter column: \033[0m");
-                break;
-            case 2:
-                System.out.println("\033[0;32mPlayer: " + this.presenterApp.getCurrentPlayer() + " Enter column: \033[0m");
-        }
+        System.out.println("Player: " + this.presenterApp.getCurrentPlayer() + " Enter column: ");
         int column = this.sc.nextInt();
         return this.presenterApp.userChoice(column);
     }
