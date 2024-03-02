@@ -124,6 +124,12 @@ public class BoardModel {
             }
             return 0;
     }
+
+    /** Check for a possible Win.
+     * @param currentPlayer Current Player Playing.
+     * @param inputRow Row index of current player's move.
+     * @param inputCol Column index of current player's move.
+     * @return currentPlayer - if player won, 0 otherwise.*/
     private int checkWin(int currentPlayer, int inputRow, int inputCol)
     {
         int count = 0;
@@ -217,18 +223,27 @@ public class BoardModel {
 
         return 0;
     }
+
+    /** Check for a valid input Column.
+     * @return true - if input Column index is valid. false - otherwise.*/
     public boolean checkValidColumn(int column)
     {
         return column>0 && column<=this.Columns;
     }
+
+    /** Get how many rows in gameBoard.*/
     public int getRows() {
         return Rows;
     }
 
+    /** Get how many Columns in gameBoard.*/
     public int getColumns() {
         return Columns;
     }
 
+    /** Get next free row index in input column index chosen by current player.
+     * @param column Column index where next free row is checked.
+     * @return Next free row index in input Column index.*/
     public int getNextFreeSpace(int column)
     {
         int space = -1;
@@ -257,5 +272,4 @@ public class BoardModel {
         }
         return space;
     }
-
 }
