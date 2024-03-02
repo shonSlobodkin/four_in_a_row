@@ -6,11 +6,14 @@ public class BoardModel {
     private int nextFreePlaceColumn1, nextFreePlaceColumn2, nextFreePlaceColumn3, nextFreePlaceColumn4, nextFreePlaceColumn5, nextFreePlaceColumn6, nextFreePlaceColumn7;
     private int numOfPlayer1Circles, numOfPlayer2Circles;
 
+    /** BoardMode Class constructor.*/
     public BoardModel()
     {
         gameBoard = new int[Rows][Columns];
         this.initGame();
     }
+
+    /** Initialize the game. Init the logical gameBoard.*/
     public void initGame()
     {
         numOfPlayer1Circles = 0;
@@ -32,6 +35,10 @@ public class BoardModel {
         nextFreePlaceColumn6 = Rows -1;
         nextFreePlaceColumn7 = Rows -1;
     }
+
+    /** Check if input column in full.
+     * @param Column Input Column to be checked.
+     * @return true - if Input Column is full, false - otherwise.*/
     public boolean checkIfColumnFull(int Column)
     {
         switch (Column)
@@ -58,6 +65,10 @@ public class BoardModel {
         }
         return true;
     }
+
+    /** Add a circle to logical gameBoard.
+     * @param currentPlayer Current Player Playing.
+     * @param Column Column where to add a circle.*/
     public int addCircleToColumn(int Column, int currentPlayer)
     {
         int rowInputed=0;
