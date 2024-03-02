@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class View implements IView{
     private final Presenter presenterApp;
-    private Scanner sc = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
 
     /** View Class Constructor.
      * @param inputPresenter Presenter Class Object to be linked with new View Class Object.*/
@@ -52,7 +52,7 @@ public class View implements IView{
     private int continueGame()
     {
         int currentPlayer = this.presenterApp.getCurrentPlayer();
-        System.out.println("Player: " + this.presenterApp.getCurrentPlayer() + " Enter column: ");
+        System.out.println("Player: " + currentPlayer + " Enter column: ");
         int column = this.sc.nextInt();
         return this.presenterApp.userChoice(column);
     }
