@@ -10,6 +10,9 @@ public class Presenter extends JFrame{
     private View gameView; // Game View Class to be linked with this Presenter Application
     private final BoardPaint myGraphicBoard; // Inner class that displays live game board
     private int currentPlayer; // Current Player Playing
+
+    /** Presenter Class constructor method
+     * @param boardModel The BoardModel Class object to be linked with new Presenter Class Object*/
     public Presenter(BoardModel boardModel)
     {
         // Set board size by input boardModel object's settings
@@ -27,7 +30,7 @@ public class Presenter extends JFrame{
         getContentPane().add(myGraphicBoard);
     }
 
-    /** Opens the Application Display Window for the first time */
+    /** Method that Opens the Application Display Window for the first time */
     public void openApplication()
     {
         setTitle("4 IN A ROW"); // Set Window Title
@@ -37,43 +40,64 @@ public class Presenter extends JFrame{
         setResizable(false); // Set Window resizeable parameter
         setVisible(true); // Set Window to bee seen - VISIBLE
     }
-    /** Closes the Application Window and ends the Presenter Object Process */
+
+    /** Closes the Application Window and ends the Presenter Class Object Process */
     public void closeApplication()
     {
         setVisible(false); // Close Presenter Application Window
         System.exit(0); // Completely Stop The Presenter Application Process
     }
-    /** Link the view class to Presenter Application class*/
+
+    /** Link the View Class object to Presenter Class object
+     * @param inputView The View Class object to be linked with this Presenter Class object*/
     public void setView(View inputView)
     {
         this.gameView = inputView;
     }
 
-    /** Link the view class to Presenter Application class*/
+    /** Performs user choice move and updates both logical and graphic game board.
+     * <br>
+     * Method also checks with BoardModel class if user choice move is legal.
+     * @param column The column chosen by the current player */
     public int userChoice(int column)
     {
+        // Init PlayerWon to 0. Variable will be updated if a winning move was done by one of players.
         int playerWon = 0;
+
+        // Check if column input was VALID input (if column input is VALID index)
         if(gameBoardModel.checkValidColumn(column) && !gameBoardModel.checkIfColumnFull(column)) {
+
+            // Add to the graphic circle board the new circle at the right position
             myGraphicBoard.addCircle(gameBoardModel.getNextFreeSpace(column),column,currentPlayer%2+1);
+
+            // Update the logic gameBoard with current player's move and check for a possible win for current player.
             playerWon = gameBoardModel.addCircleToColumn(column,currentPlayer%2+1);
             if(playerWon==0)
             {
+                // Set next move to be done by the other player.
                 this.currentPlayer++;
             }
             else {
+                // Display message that current player has Won.
                 gameView.displayEndOfGameMessage("PLAYER: " + playerWon + " WON THE GAME!!!");
                 return 1;
             }
         }
+        // Display ERROR message in case input was ILLEGAL
         else {
             gameView.displayMessage("\033[0;31mERROR, tried inserting circle in a FULL column or in a columns OUT OF INDEX!\nTry other columns!\033[0m");
         }
         return 0;
     }
+
+    /** Returns the current player
+     * @return Current Player (VALUES 1 OR 2)*/
     public int getCurrentPlayer()
     {
         return this.currentPlayer%2+1;
     }
+
+    /** Init both the graphic board and logic board, set current player counter to 0.*/
     public void newGame()
     {
         this.myGraphicBoard.initColorBoard();
@@ -88,11 +112,17 @@ public class Presenter extends JFrame{
         private static final int CELL_SIZE = CIRCLE_SIZE + 10; // Size of each cell (circle + gap)
         private final Color[][] circleColors = new Color[ROWS][COLS];
 
+        /** BoardPaint inner class constructor method.
+         * <br>
+         * Initializes the graphic board. */
         public BoardPaint()
         {
             setLayout(new BorderLayout());
             this.initColorBoard();
         }
+
+        /** Displaying the graphic board on application Window
+         * @param g Graphics object where board is drawn.*/
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -111,6 +141,7 @@ public class Presenter extends JFrame{
             }
         }
 
+        /** Initialize the graphic board*/
         private void initColorBoard()
         {
             // Initialize the array to store circle colors
@@ -123,12 +154,23 @@ public class Presenter extends JFrame{
             }
             repaint();
         }
+
+        /** Draw a Circle on given position with a give color.
+         * @param x X Coordinate to draw the Circle.
+         * @param y Y Coordinate to draw the Circle.
+         * @param circleColor The Color of the Circle.
+         * @param g Graphics Object where Circle is drawn*/
         private void drawCircle(Graphics g, int x, int y, Color circleColor) {
             g.setColor(circleColor); // Color.WHITE
             g.fillOval(x, y, CIRCLE_SIZE, CIRCLE_SIZE);
             g.setColor(Color.WHITE);
             g.drawOval(x, y, CIRCLE_SIZE, CIRCLE_SIZE);
         }
+
+        /** Add a new circle to graphic board according to current player's move.
+         * @param player Current Player, transferred to determine the color of the Circle.
+         * @param row Row index of new Circle to be added to graphic board.
+         * @param column Column index of new Circle to be added to graphic board.*/
         private void addCircle(int row, int column, int player) {
             switch (player)
             {
