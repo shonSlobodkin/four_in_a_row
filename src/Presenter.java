@@ -3,6 +3,7 @@
 import javax.swing.*;
 import java.awt.*;
 
+/** Presenter Class, A class responsible for the visual display of the game board to the user.*/
 public class Presenter extends JFrame{
     private static int rows; // How many Rows to display
     private static int columns; // How many Columns to display
@@ -105,7 +106,6 @@ public class Presenter extends JFrame{
         gameBoardModel.initGame();
     }
     public static class BoardPaint extends JPanel {
-        private BoardModel getGameBoardModel;
         private static final int ROWS = gameBoardModel.getRows();
         private static final int COLS = gameBoardModel.getColumns();
         private static final int CIRCLE_SIZE = 50; // Diameter of each circle
